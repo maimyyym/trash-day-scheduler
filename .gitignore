@@ -1,0 +1,19 @@
+# terraform gitignore
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraform/
+
+# vacode gitignore
+.vscode/*
+.history/*
+
+# node gitignore
+node_modules/
+dist/
+
+# others
+.DS_Store
+.env
+.env.local
+creds/*
