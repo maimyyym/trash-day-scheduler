@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 
 export const createEvent = async (credsFile): Promise<void> => {
-    const creds = require(credsFile);
+    const creds = JSON.parse(credsFile);
     const auth = new google.auth.GoogleAuth({
         credentials: creds,
         scopes: ['https://www.googleapis.com/auth/calendar'],

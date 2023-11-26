@@ -30,6 +30,7 @@ const getUnburnableTrashDay = (date: Date, dayOfWeek: number): Date => {
     // 第一火曜日まで進める
     while (dayOfWeek !== 2) {
         date.setDate(date.getDate() + 1);
+        dayOfWeek = date.getDay();
     }
     const unBurnableTrashDay = date;
     
@@ -41,9 +42,10 @@ const getPetBottleTrashDay = (date: Date, dayOfWeek: number): Date => {
     while (dayOfWeek !== 2) {
         // 第一火曜日まで進める
         date.setDate(date.getDate() + 1);
-        // 14日進めて第三火曜日にする；
-        date.setDate(date.getDate() + 14);
+        dayOfWeek = date.getDay();
     }
+    // 14日進めて第三火曜日にする；
+    date.setDate(date.getDate() + 14);
     const petBottleTrashDay = date;
     
     return petBottleTrashDay;

@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "lambda_function" {
-    function_name = "${local.prefix}-lambda-fucntion"
+    function_name = "${local.prefix}-lambda-function"
     timeout = 600
-    memory_size = 128
+    memory_size = 512
     s3_bucket = aws_s3_bucket.lambda_package_bucket.bucket
     s3_key = data.aws_s3_object.lambda_package.key
     source_code_hash = data.aws_s3_object.lambda_package_hash.body

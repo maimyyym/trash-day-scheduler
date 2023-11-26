@@ -16,28 +16,37 @@ export const handler = async (event: any) => {
     // const response = await ssmClient.send(command);
     <ここまで>-----*/
 
-    const s3Client = new S3Client({});
+    const s3Client = new S3Client({region: process.env.AWS_REGION});
 
     console.log(s3Client);
 
-    const bucketParams = {
-        Bucket: `${process.env.S3_BUCKET_NAME}`,
-        Key: `${process.env.S3_OBJECT_KEY}`,
-    };
-
-    console.log(bucketParams);
-
-    const getS3File = async (bucketParams) => {
+    const getS3File = async () => {
+        const bucketParams = {
+            Bucket: `${process.env.S3_BUCKET_NAME}`,
+            Key: `${process.env.S3_OBJECT_KEY}`,
+        };
+    
+        console.log(bucketParams);
+        
         try {
             const bucketCommand = new GetObjectCommand(bucketParams);
             console.log(bucketCommand);
-            const bucketResponse = await s3Client.send(bucketCommand);
-            console.log(bucketResponse);
-            const responseStr = bucketResponse.Body?.transformToString;
+            const { Body } = await s3Client.send(bucketCommand);
+            console.log(Body);
+            const responseStr = streamToString(Body);
             return responseStr;
         } catch (err) {
             console.log(err);
         }
+    }
+
+    function streamToString(stream) {
+        return new Promise((resolve, reject) => {
+            const chunks = [];
+            stream.on('data', (chunk: never) => chunks.push(chunk));
+            stream.on('error', reject);
+            stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+        });
     }
 
     const unburnableTrashDay = getTrashDay('unburnable');
@@ -46,10 +55,11 @@ export const handler = async (event: any) => {
     console.log(unburnableTrashDay);
     console.log(petBottleTrashDay);
 
-    const s3File = await getS3File(bucketParams);
+    const s3File = await getS3File();
 
     const createEventResponse =  await createEvent(s3File);
 
+    // undifinedになる
     console.log(createEventResponse);
 
     return {
