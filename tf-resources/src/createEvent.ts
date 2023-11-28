@@ -1,32 +1,36 @@
 import { google } from 'googleapis';
+import { formatDate } from './formatDate';
 
-export const createEvent = async (credsFile): Promise<void> => {
+export const createEvent = async (credsFile, eventTitle, datetime): Promise<void> => {
     const creds = JSON.parse(credsFile);
+    console.log('creds:' + JSON.stringify(creds));
     const auth = new google.auth.GoogleAuth({
         credentials: creds,
         scopes: ['https://www.googleapis.com/auth/calendar'],
     });
     const calendar = google.calendar({ version: 'v3', auth });
 
+    const date = formatDate(datetime);
+
     const event = {
-        summary: 'test',
+        summary: eventTitle,
         start: {
-            dateTime: '2023-10-28T09:00:00-07:00',
+            date: date,
             timeZone: 'Asia/Tokyo',
         },
         end: {
-            dateTime: '2023-10-29T17:00:00-07:00',
+            date: date,
             timeZone: 'Asia/Tokyo',
         },
     };
 
-    calendar.events.insert({
-        calendarId: `${process.env.CALENDAR_ID}`,
-        requestBody: event,
-    }, (err, res) => {
-        if (err) {
+    try {
+        const response = await calendar.events.insert({
+            calendarId: `${process.env.CALENDAR_ID}`,
+            requestBody: event,
+        });
+        console.log(response);
+    } catch (err) {
             return console.log('The API returned an error: ' + err);
         }
-        return res.data;
-    });
 }

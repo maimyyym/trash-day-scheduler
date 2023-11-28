@@ -57,15 +57,14 @@ export const handler = async (event: any) => {
 
     const s3File = await getS3File();
 
-    const createEventResponse =  await createEvent(s3File);
+    const createUnburnableTrashDayEvent =  await createEvent(s3File, '燃えないゴミの日', unburnableTrashDay);
+    const createPetBottleTrashDayEvent =  await createEvent(s3File, 'ペットボトルゴミの日', petBottleTrashDay);
 
-    // undifinedになる
-    console.log(createEventResponse);
 
     return {
         statusCode: 200,
         body: JSON.stringify({  
-            message: 'Hello World!',
+            message: 'success',
         }),
     }
     }

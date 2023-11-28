@@ -4,8 +4,8 @@ resource "aws_scheduler_schedule" "eventbridge" {
     flexible_time_window  {
         mode = "OFF"
     }
-    # 毎日0時に実行
-    schedule_expression = "cron(0 0 * * ? *)"
+    # 毎月1日の朝6時に実行
+    schedule_expression = "cron(0 6 1 * ? *)"
     schedule_expression_timezone = "Asia/Tokyo"
     target  {
         arn = aws_lambda_function.lambda_function.arn
