@@ -1,0 +1,10 @@
+aws_region = "your-region"
+aws_account_id = "your-account-id"
+aws_profile = "your-profile"
+environment = "dev"
+ssm_parameter_name = "/trash-day-scheduler/dev/google-calendar-api-key"
+google_calendar_api_path = "../creds/your-cred-file-name.json"
+google_calendar_api_file_name = "your-cred-file-name.json"
+google_calendar_api_bucket_name = "trash-day-scheduler-google-calendar-api"
+google_calendar_api_key = "testtest" # This is not used
+google_calendar_id = "your-calendar-id" # Default is youy gmail address
