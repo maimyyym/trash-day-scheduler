@@ -13,14 +13,13 @@ resource "aws_scheduler_schedule" "eventbridge" {
     }
 }
 
-################################################################################
-# IAM Role for EventBridge Scheduler                                           #
-################################################################################
+# ------------------------------
+# 権限設定
+# ------------------------------
 resource "aws_iam_role" "eventbridge_scheduler" {
     name               = "iam_role_name_eventbridge_scheduler"
     assume_role_policy = data.aws_iam_policy_document.eventbridge_scheduler_assume.json
 }
-
 data "aws_iam_policy_document" "eventbridge_scheduler_assume" {
     statement {
         effect = "Allow"
@@ -37,23 +36,19 @@ data "aws_iam_policy_document" "eventbridge_scheduler_assume" {
         }
     }
 }
-
 resource "aws_iam_role_policy" "eventbridge_scheduler_custom" {
     name   = "iam_policy_name_eventbridge_scheduler"
     role   = aws_iam_role.eventbridge_scheduler.name
     policy = data.aws_iam_policy_document.eventbridge_scheduler_custom.json
 }
-
 data "aws_iam_policy_document" "eventbridge_scheduler_custom" {
     statement {
         effect = "Allow"
-
         actions = [
         "lambda:InvokeFunction",
         ]
-
-    resources = [
-        "*",
+        resources = [
+            "*",
         ]
     }
 }

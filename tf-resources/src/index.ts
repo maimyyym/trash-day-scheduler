@@ -1,4 +1,4 @@
-import { GetParameterCommand, SSMClient } from '@aws-sdk/client-ssm';
+// import { GetParameterCommand, SSMClient } from '@aws-sdk/client-ssm';
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { getTrashDay } from './getTrashDay';
 import { createEvent } from './createEvent';
