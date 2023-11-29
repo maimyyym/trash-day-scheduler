@@ -18,8 +18,6 @@ export const handler = async (event: any) => {
 
     const s3Client = new S3Client({region: process.env.AWS_REGION});
 
-    console.log(s3Client);
-
     const getS3File = async () => {
         const bucketParams = {
             Bucket: `${process.env.S3_BUCKET_NAME}`,
