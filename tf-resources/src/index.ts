@@ -26,13 +26,9 @@ export const handler = async (event: any) => {
             Key: `${process.env.S3_OBJECT_KEY}`,
         };
     
-        console.log(bucketParams);
-        
         try {
             const bucketCommand = new GetObjectCommand(bucketParams);
-            console.log(bucketCommand);
             const { Body } = await s3Client.send(bucketCommand);
-            console.log(Body);
             const responseStr = streamToString(Body);
             return responseStr;
         } catch (err) {
@@ -52,14 +48,10 @@ export const handler = async (event: any) => {
     const unburnableTrashDay = getTrashDay('unburnable');
     const petBottleTrashDay = getTrashDay('petBottle');
 
-    console.log(unburnableTrashDay);
-    console.log(petBottleTrashDay);
-
     const s3File = await getS3File();
 
     const createUnburnableTrashDayEvent =  await createEvent(s3File, '燃えないゴミの日', unburnableTrashDay);
     const createPetBottleTrashDayEvent =  await createEvent(s3File, 'ペットボトルゴミの日', petBottleTrashDay);
-
 
     return {
         statusCode: 200,

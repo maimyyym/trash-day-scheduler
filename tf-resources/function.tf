@@ -121,12 +121,12 @@ resource "null_resource" "npm_build" {
         command = "cd ${path.module}/src && npm run build"
     }
     provisioner "local-exec" {
-        command = "aws s3 cp ${local.function_package_local_path} s3://${aws_s3_bucket.lambda_package_bucket.bucket}/${local.helloworld_function_package_s3_key}"
+        command = "aws s3 cp ${local.function_package_local_path} s3://${aws_s3_bucket.lambda_package_bucket.bucket}/${local.function_package_s3_key}"
     }
     provisioner "local-exec" {
-        command = "openssl dgst -sha256 -binary ${local.function_package_local_path} | openssl enc -base64 | tr -d \"\n\" > ${local.helloworld_function_package_base64sha256_local_path}"
+        command = "openssl dgst -sha256 -binary ${local.function_package_local_path} | openssl enc -base64 | tr -d \"\n\" > ${local.function_package_base64sha256_local_path}"
     }
     provisioner "local-exec" {
-        command = "aws s3 cp ${local.function_package_base64sha256_local_path} s3://${aws_s3_bucket.lambda_package_bucket.bucket}/${local.helloworld_function_package_base64sha256_s3_key} --content-type \"text/plain\""
+        command = "aws s3 cp ${local.function_package_base64sha256_local_path} s3://${aws_s3_bucket.lambda_package_bucket.bucket}/${local.function_package_base64sha256_s3_key} --content-type \"text/plain\""
     }
 }

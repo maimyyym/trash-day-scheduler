@@ -3,7 +3,6 @@ import { formatDate } from './formatDate';
 
 export const createEvent = async (credsFile, eventTitle, datetime): Promise<void> => {
     const creds = JSON.parse(credsFile);
-    console.log('creds:' + JSON.stringify(creds));
     const auth = new google.auth.GoogleAuth({
         credentials: creds,
         scopes: ['https://www.googleapis.com/auth/calendar'],
@@ -29,7 +28,6 @@ export const createEvent = async (credsFile, eventTitle, datetime): Promise<void
             calendarId: `${process.env.CALENDAR_ID}`,
             requestBody: event,
         });
-        console.log(response);
     } catch (err) {
             return console.log('The API returned an error: ' + err);
         }
