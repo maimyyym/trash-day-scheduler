@@ -16,5 +16,8 @@ $ cp terraform.tfvars.example terraform.tfvars
 ```
 Write your variables!
 
-### Change settings
+### Run your terraform command!
+Fight🙇🏻‍♀️✊🏻
+
+## Change settings
 Please read src/getTrashDay.ts🫣
