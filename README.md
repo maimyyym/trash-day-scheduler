@@ -6,12 +6,12 @@ On the first of each month, a Lambda will be triggered to register the garbage d
 - Third Tuesday of the month: PET Bottle Garbage Day
 
 ## Usage
-### make directory "creds"
+### Make directory "creds"
 Get your google  calendar API credentials JSON, put it in "creds/"
 
-### make file "ts-resources/terraform.tfvars"
+### Make file "tf-resources/terraform.tfvars"
 ```
-$ cd ts-resources/
+$ cd tf-resources/
 $ cp terraform.tfvars.example terraform.tfvars
 ```
 Write your variables!
